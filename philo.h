@@ -26,6 +26,7 @@ typedef struct s_philo
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
 	pthread_t		t_id;
+	t_table			*table;
 	int				id;
 }		t_philo;
 

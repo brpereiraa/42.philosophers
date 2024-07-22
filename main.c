@@ -12,27 +12,32 @@
 
 #include "./philo.h"
 
-void action_print(int id, char *msg, char *color)
+inline static void action_print(int id, char *msg, char *color)
 {
 	printf("%i: %s%s\n%s", id, color, msg, RESET);
 }
 
-void lone_philo(t_table	*table)
+void *lone_philo(void *arg)
 {
+	t_table *table;
+
+	table = (t_table *) arg;
 	action_print(1, "has taken a fork", GREEN);
-	action_print(1, "has died", RED);
-	free(table);
-	exit(0);
+	action_print(table->tme_die, "has died", RED);
 }
 
 void start_philo(t_philo *philo)
 {
-	int i = -1;
+	t_table *table;
+	int i;
+	
+	i = -1;
+	table = philo->table;
 	while(++i < 3)
 	{
 		pthread_mutex_lock(philo->l_fork);
 		pthread_mutex_lock(philo->r_fork);
-		action_print(philo->id, "has taken a fork", GREEN);
+		action_print(philo->id, "has taken a 	fork", GREEN);
 		action_print(philo->id, "has taken a fork", GREEN);
 		usleep(1000);
 		pthread_mutex_unlock(philo->l_fork);
@@ -72,13 +77,23 @@ int	main(int ac, char **av)
 		table->tme_mst_eat = atoi(av[5]);
 	else
 		table->tme_mst_eat = 0;
-	if(table->n_philo == 1)
-		lone_philo(table);
 	table->philos = malloc(sizeof(t_philo) * table->n_philo);
+	if(table->n_philo == 1)
+	{
+		pthread_create(&table->philos[0].t_id, NULL, lone_philo, table);
+		pthread_join(table->philos[0].t_id, NULL);
+		free(table->philos);
+		free(table);
+		exit(0);
+	}
 	table->forks = malloc(sizeof(pthread_mutex_t) * table->n_philo);
+	while(++i < table->n_philo)
+		pthread_mutex_init(table->forks, NULL);
+	i = -1;
 	while(++i < table->n_philo)
 	{	
 		table->philos[i].id = i;
+		table->philos[i].table = table;
 		table->philos[i].l_fork = &table->forks[i];
 		table->philos[i].r_fork = &table->forks[i + 1];
 		pthread_create(&table->philos[i].t_id, NULL, init_philo, &table->philos[i]);
