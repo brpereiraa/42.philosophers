@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 15:14:34 by brpereir          #+#    #+#             */
-/*   Updated: 2024/07/31 17:40:29 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:24:45 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	main(int ac, char **av)
 	start_simulation(table);
 	while (ft_monitoring(table))
 		;
+	end_simulation(table);
 	return (0);
 }
 
@@ -55,7 +56,7 @@ void	start_simulation(t_table *table)
 void	lone_philo(t_table *table)
 {
 	action_print(&table->philos[0], 1);
-	usleep(table->tme_die);
+	ft_usleep(table->tme_die);
 	action_print(&table->philos[0], 3);
 	pthread_mutex_destroy(table->forks);
 	pthread_mutex_destroy(table->write);

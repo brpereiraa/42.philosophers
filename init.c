@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 17:01:52 by brpereir          #+#    #+#             */
-/*   Updated: 2024/07/31 17:35:13 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:11:35 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	threads_init(t_table *table)
 	while (++i < table->n_philo)
 		pthread_mutex_init(&table->forks[i], NULL);
 	table->write = malloc(sizeof(pthread_mutex_t));
-	if (!table->write)
+	if (!table->write)	
 		return ;
 	pthread_mutex_init(table->write, NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:44:51 by brpereir          #+#    #+#             */
-/*   Updated: 2024/07/31 17:46:28 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:23:48 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	ft_monitoring(t_table *table)
 		tmp = gettime() - table->philos[i].lst_eat;
 		if (tmp > table->tme_die)
 		{
+			// pthread_mutex_lock(table->write);
 			action_print(&table->philos[i], 3);
 			return (0);
 		}

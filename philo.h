@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 15:16:14 by brpereir          #+#    #+#             */
-/*   Updated: 2024/07/31 17:40:36 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:21:58 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,5 +150,9 @@ void	threads_init(t_table *table);
 int		ft_monitoring(t_table *table);
 int		ft_usleep(size_t milliseconds);
 void	start_simulation(t_table *table);
+void	mtx_destroy(t_table *table);
+void	free_structs(t_table *table);
+void	end_simulation(t_table *table);
+
 
 #endif
