@@ -6,25 +6,28 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 15:16:14 by brpereir          #+#    #+#             */
-/*   Updated: 2024/07/30 03:09:52 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/31 17:40:36 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <pthread.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/time.h>
+#ifndef PHILO_H
+# define PHILO_H
 
-# define BlACK "\e[1;30m"
+# include <pthread.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <sys/time.h>
+
+# define BLACK "\e[1;30m"
 # define RED "\e[1;31m"
 # define GREEN "\e[1;32m"
 # define YELLOW "\e[1;33m"
 # define BLUE "\e[1;34m"
 # define RESET "\033[0m"
 
-typedef struct s_philo t_philo;
-typedef struct s_table t_table;
+typedef struct s_philo	t_philo;
+typedef struct s_table	t_table;
 
 struct s_philo
 {
@@ -59,7 +62,7 @@ struct s_table
  *
  * @return The current time in seconds since the Epoch.
  */
-int gettime();
+int		gettime(void);
 
 /**
  * @brief Checks if a philosopher is dead based on the time since last eating.
@@ -71,7 +74,7 @@ int gettime();
  * @param philo Pointer to the philosopher structure.
  * @return 1 if the philosopher is dead, 0 otherwise.
  */
-int is_dead(t_philo *philo);
+int		is_dead(t_philo *philo);
 
 /**
  * @brief Checks if a character is a whitespace character.
@@ -81,19 +84,20 @@ int is_dead(t_philo *philo);
  * @param c The character to check.
  * @return 1 if the character is a space or tab, 0 otherwise.
  */
-int ft_ispace(char c);
+int		ft_ispace(char c);
 
 /**
  * @brief Converts a string to an integer.
  *
  * This function converts a string representation of a number to an integer.
  * It handles whitespace characters and checks for non-numeric characters.
- * Returns -1 in case of an invalid input or if the number exceeds integer limits.
+ * Returns -1 in case of an invalid input or 
+ * if the number exceeds integer limits.
  *
  * @param str The string to convert to an integer.
  * @return The integer value, or -1 if the input is invalid.
  */
-int ft_atoi(char *str);
+int		ft_atoi(char *str);
 
 /**
  * @brief Prints an action message for a philosopher.
@@ -105,7 +109,7 @@ int ft_atoi(char *str);
  * @param flag An integer flag indicating the action type:
  *             1 = taking a fork, 2 = sleeping, 3 = died.
  */
-void action_print(t_philo *philo, int flag);
+void	action_print(t_philo *philo, int flag);
 
 /**
  * @brief Handles the actions of a single philosopher.
@@ -116,7 +120,7 @@ void action_print(t_philo *philo, int flag);
  * @param arg Pointer to the table structure containing philosopher data.
  * @return NULL (no return value for pthread compatibility).
  */
-void *lone_philo(void *arg);
+void	lone_philo(t_table *table);
 
 /**
  * @brief Starts the dining process for a philosopher.
@@ -126,7 +130,7 @@ void *lone_philo(void *arg);
  *
  * @param philo Pointer to the philosopher structure.
  */
-void start_philo(t_philo *philo);
+void	start_philo(t_philo *philo);
 
 /**
  * @brief Initializes a philosopher's thread and starts the dining process.
@@ -137,10 +141,14 @@ void start_philo(t_philo *philo);
  * @param arg Pointer to the philosopher structure.
  * @return NULL (no return value for pthread compatibility).
  */
-void *init_philo(void *arg);
+void	*init_philo(void *arg);
 
+int		valid_input(t_table *table);
 
-int valid_input(t_table *table);
-
-void data_init(t_table **table, char **av, int ac);
+void	data_init(t_table **table, char **av, int ac);
 void	threads_init(t_table *table);
+int		ft_monitoring(t_table *table);
+int		ft_usleep(size_t milliseconds);
+void	start_simulation(t_table *table);
+
+#endif

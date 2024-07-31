@@ -1,6 +1,6 @@
 NAME = philo
 
-SRC = main.c utils.c validations.c init.c
+SRC = main.c utils.c init.c monitoring.c
 OBJS = ${SRC:.c=.o}
 
 CFLAGS = -Wall -Wextra -Werror -I include
