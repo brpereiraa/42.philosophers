@@ -15,20 +15,18 @@
 int	main(int ac, char **av)
 {
 	t_table			*table;
-	int				i;
 
 	if (ac != 5 && ac != 6)
 		return (0);
-	i = -1;
 	data_init(&table, av, ac);
 	if (!valid_input(table))
 		exit(0);
 	threads_init(table);
 	table->start_time = gettime();
-	i = -1;
 	start_simulation(table);
 	while (ft_monitoring(table))
 		;
+	table->flag = 1;
 	end_simulation(table);
 	return (0);
 }
@@ -83,5 +81,7 @@ void	start_philo(t_philo *philo)
 		philo->lst_eat = gettime();
 		action_print(philo, 2);
 		ft_usleep(philo->table->tme_sleep);
+		if(!philo->table->flag)
+			action_print(philo, 4);
 	}
 }

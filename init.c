@@ -25,6 +25,7 @@ void	data_init(t_table **table, char **av, int ac)
 		(*table)->tme_mst_eat = ft_atoi(av[5]);
 	else
 		(*table)->tme_mst_eat = 0;
+	(*table)->flag = 0;
 }
 
 void	threads_init(t_table *table)

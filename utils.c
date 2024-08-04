@@ -64,6 +64,8 @@ void	action_print(t_philo *philo, int flag)
 		printf("[%i] %i: %sis sleeping\n%s", time, id, BLUE, RESET);
 	if (flag == 3)
 		printf("[%i] %i: %shas died\n%s", time, id, RED, RESET);
+	if (flag == 4)
+		printf("[%i] %i: is thinking\n%s", time, id, RESET);
 	pthread_mutex_unlock(philo->table->write);
 }
 
@@ -79,8 +81,8 @@ int	is_dead(t_philo *philo)
 	if (time - philo->lst_eat > max_time)
 		philo->table->flag = 1;
 	if (max_eat
-		&& philo->eat_count > max_eat)
-		return (1);
+		&& philo->eat_count == max_eat)
+		philo->table->flag = 1;
 	if (philo->table->flag)
 		return (1);
 	return (0);

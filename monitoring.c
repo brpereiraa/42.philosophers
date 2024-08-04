@@ -14,22 +14,31 @@
 
 int	ft_monitoring(t_table *table)
 {
-	int	time;
+	int flag;
 	int	tmp;
 	int	i;
 
-	time = gettime();
 	i = -1;
 	while (++i < table->n_philo)
 	{
+		flag = (table->philos[i].eat_count == table->tme_mst_eat);
 		tmp = gettime() - table->philos[i].lst_eat;
-		if (tmp > table->tme_die)
+		if (tmp > table->tme_die && !flag)
 		{
 			// pthread_mutex_lock(table->write);
 			action_print(&table->philos[i], 3);
 			return (0);
 		}
 	}
+	i = -1;
+	while (++i < table->n_philo)
+	{
+		flag = (table->philos[i].eat_count == table->tme_mst_eat);
+		if (!flag)
+			break;
+	}
+	if(flag)
+		return (0);
 	usleep(10);
 	return (1);
 }
