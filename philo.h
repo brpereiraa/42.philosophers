@@ -38,6 +38,7 @@ struct s_philo
 	int				eat_count;
 	int				id;
 	int				lst_eat;
+	int				dead;
 };
 
 struct s_table

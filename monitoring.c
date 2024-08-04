@@ -26,6 +26,7 @@ int	ft_monitoring(t_table *table)
 		if (tmp > table->tme_die && !flag)
 		{
 			// pthread_mutex_lock(table->write);
+		table->philos[i].dead = 1;
 			action_print(&table->philos[i], 3);
 			return (0);
 		}

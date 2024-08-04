@@ -42,6 +42,8 @@ void	start_simulation(t_table *table)
 		table->philos[i].id = i;
 		table->philos[i].table = table;
 		table->philos[i].l_fork = &table->forks[i];
+		table->philos[i].dead = 0;
+		table->philos[i].eat_count = 0;
 		if (i + 1 == table->n_philo)
 			table->philos[i].r_fork = &table->forks[0];
 		else

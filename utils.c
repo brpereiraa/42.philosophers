@@ -71,14 +71,10 @@ void	action_print(t_philo *philo, int flag)
 
 int	is_dead(t_philo *philo)
 {
-	int	time;
-	int	max_time;
 	int	max_eat;
 
 	max_eat = philo->table->tme_mst_eat;
-	max_time = philo->table->tme_die;
-	time = gettime();
-	if (time - philo->lst_eat > max_time)
+	if (philo->dead)
 		philo->table->flag = 1;
 	if (max_eat
 		&& philo->eat_count == max_eat)
