@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 15:16:14 by brpereir          #+#    #+#             */
-/*   Updated: 2024/09/25 14:39:40 by bruno            ###   ########.fr       */
+/*   Updated: 2024/09/25 21:13:02 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,5 @@ void	start_simulation(t_table *table);
 void	mtx_destroy(t_table *table);
 void	free_structs(t_table *table);
 void	end_simulation(t_table *table);
-
 
 #endif

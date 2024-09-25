@@ -6,17 +6,17 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 17:01:52 by brpereir          #+#    #+#             */
-/*   Updated: 2024/09/25 14:42:31 by bruno            ###   ########.fr       */
+/*   Updated: 2024/09/25 21:22:13 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./philo.h"
 
-int		data_init(t_table **table, char **av, int ac)
+int	data_init(t_table **table, char **av, int ac)
 {
 	*table = malloc(sizeof(t_table));
 	if (!table)
-		return 1;
+		return (1);
 	(*table)->n_philo = ft_atoi(av[1]);
 	(*table)->tme_die = ft_atoi(av[2]);
 	(*table)->tme_eat = ft_atoi(av[3]);
@@ -26,13 +26,13 @@ int		data_init(t_table **table, char **av, int ac)
 	else
 		(*table)->tme_mst_eat = 0;
 	(*table)->flag = 0;
-	if((*table)->n_philo < 1 || (*table)->n_philo > 200)
-		return(printf("Number of philos must be between 1 and 200\n"));
-	if((*table)->tme_die < 60 || (*table)->tme_sleep < 60 || (*table)->tme_eat < 60)
-		return(printf("Times must be higher than 60\n"));
-	if((*table)->tme_mst_eat < 0)
-		return(printf("Meals\n"));
-	return(0);
+	if ((*table)->n_philo < 1 || (*table)->n_philo > 200)
+		return (printf("Number of philos must be between 1 and 200\n"));
+	if ((*table)->tme_die < 60 || (*table)->tme_sleep < 60 || (*table)->tme_eat < 60)
+		return (printf("Times must be higher than 60\n"));
+	if ((*table)->tme_mst_eat < 0)
+		return (printf("Meals\n"));
+	return (0);
 }
 
 void	threads_init(t_table *table)
@@ -49,7 +49,7 @@ void	threads_init(t_table *table)
 	while (++i < table->n_philo)
 		pthread_mutex_init(&table->forks[i], NULL);
 	table->write = malloc(sizeof(pthread_mutex_t));
-	if (!table->write)	
+	if (!table->write)
 		return ;
 	pthread_mutex_init(table->write, NULL);
 }

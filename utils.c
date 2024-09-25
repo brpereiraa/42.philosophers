@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:44:55 by brpereir          #+#    #+#             */
-/*   Updated: 2024/09/25 18:05:35 by bruno            ###   ########.fr       */
+/*   Updated: 2024/09/25 21:18:42 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void	action_print(t_philo *philo, int flag)
 
 	id = philo->id;
 	time = gettime() - philo->table->start_time;
-	if(philo->table->flag)
-		return;
+	if (philo->table->flag)
+		return ;
 	pthread_mutex_lock(philo->table->write);
 	if (flag == 0)
 		printf("%i %i %sis eating\n%s", time, id, YELLOW, RESET);

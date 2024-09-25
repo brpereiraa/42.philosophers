@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 15:14:34 by brpereir          #+#    #+#             */
-/*   Updated: 2024/09/25 18:02:47 by bruno            ###   ########.fr       */
+/*   Updated: 2024/09/25 21:22:50 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int ac, char **av)
 
 	if (ac != 5 && ac != 6)
 		return (0);
-	if(data_init(&table, av, ac))
+	if (data_init(&table, av, ac))
 		exit(1);
 	if (!valid_input(table))
 		exit(0);
@@ -74,12 +74,11 @@ void	start_philo(t_philo *philo)
 		pthread_mutex_unlock(philo->l_fork);
 		pthread_mutex_unlock(philo->r_fork);
 		philo->lst_eat = gettime();
-		if(philo->table->flag)
-			break;
+		if (philo->table->flag)
+			break ;
 		action_print(philo, 2);
 		ft_usleep(philo->table->tme_sleep);
-		if(!philo->table->flag)
+		if (!philo->table->flag)
 			action_print(philo, 4);
-		
 	}
 }

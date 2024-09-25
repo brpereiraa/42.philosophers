@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 18:12:58 by brpereir          #+#    #+#             */
-/*   Updated: 2024/09/25 15:09:33 by bruno            ###   ########.fr       */
+/*   Updated: 2024/09/25 21:13:29 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	end_simulation(t_table *table)
 	exit(0);
 }
 
-void mtx_destroy(t_table *table)
+void	mtx_destroy(t_table *table)
 {
 	int	i;
 
@@ -31,7 +31,7 @@ void mtx_destroy(t_table *table)
 	pthread_mutex_destroy(table->write);
 }
 
-void free_structs(t_table *table)
+void	free_structs(t_table *table)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:44:51 by brpereir          #+#    #+#             */
-/*   Updated: 2024/09/25 15:09:20 by bruno            ###   ########.fr       */
+/*   Updated: 2024/09/25 21:21:09 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 int	ft_monitoring(t_table *table)
 {
-	int flag;
+	int	flag;
 	int	tmp;
 	int	i;
 
 	i = -1;
 	while (++i < table->n_philo)
 	{
-		flag = (table->philos[i].eat_count == table->tme_mst_eat && table->tme_mst_eat > 0);
+		flag = (table->philos[i].eat_count == table->tme_mst_eat
+				&& table->tme_mst_eat > 0);
 		tmp = gettime() - table->philos[i].lst_eat;
 		if (tmp > table->tme_die && !flag)
 		{
