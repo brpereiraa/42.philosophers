@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 15:16:14 by brpereir          #+#    #+#             */
-/*   Updated: 2024/07/31 18:21:58 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/09/25 14:39:40 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ void	*init_philo(void *arg);
 
 int		valid_input(t_table *table);
 
-void	data_init(t_table **table, char **av, int ac);
+int		data_init(t_table **table, char **av, int ac);
 void	threads_init(t_table *table);
 int		ft_monitoring(t_table *table);
 int		ft_usleep(size_t milliseconds);

@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 17:01:52 by brpereir          #+#    #+#             */
-/*   Updated: 2024/07/31 18:11:35 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/09/25 14:42:31 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./philo.h"
 
-void	data_init(t_table **table, char **av, int ac)
+int		data_init(t_table **table, char **av, int ac)
 {
 	*table = malloc(sizeof(t_table));
 	if (!table)
-		return ;
+		return 1;
 	(*table)->n_philo = ft_atoi(av[1]);
 	(*table)->tme_die = ft_atoi(av[2]);
 	(*table)->tme_eat = ft_atoi(av[3]);
@@ -26,6 +26,13 @@ void	data_init(t_table **table, char **av, int ac)
 	else
 		(*table)->tme_mst_eat = 0;
 	(*table)->flag = 0;
+	if((*table)->n_philo < 1 || (*table)->n_philo > 200)
+		return(printf("Number of philos must be between 1 and 200\n"));
+	if((*table)->tme_die < 60 || (*table)->tme_sleep < 60 || (*table)->tme_eat < 60)
+		return(printf("Times must be higher than 60\n"));
+	if((*table)->tme_mst_eat < 0)
+		return(printf("Meals\n"));
+	return(0);
 }
 
 void	threads_init(t_table *table)

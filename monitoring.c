@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitoring.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:44:51 by brpereir          #+#    #+#             */
-/*   Updated: 2024/07/31 18:23:48 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:09:20 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,11 @@ int	ft_monitoring(t_table *table)
 	i = -1;
 	while (++i < table->n_philo)
 	{
-		flag = (table->philos[i].eat_count == table->tme_mst_eat);
+		flag = (table->philos[i].eat_count == table->tme_mst_eat && table->tme_mst_eat > 0);
 		tmp = gettime() - table->philos[i].lst_eat;
 		if (tmp > table->tme_die && !flag)
 		{
-			// pthread_mutex_lock(table->write);
-		table->philos[i].dead = 1;
+			table->philos[i].dead = 1;
 			action_print(&table->philos[i], 3);
 			return (0);
 		}
@@ -34,8 +33,8 @@ int	ft_monitoring(t_table *table)
 	i = -1;
 	while (++i < table->n_philo)
 	{
-		flag = (table->philos[i].eat_count == table->tme_mst_eat);
-		if (!flag)
+		flag = ((table->philos[i].eat_count == table->tme_mst_eat ) && table->tme_mst_eat > 0);
+		if (flag)
 			break;
 	}
 	if(flag)

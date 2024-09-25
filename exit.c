@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 18:12:58 by brpereir          #+#    #+#             */
-/*   Updated: 2024/07/31 18:32:24 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:09:33 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void mtx_destroy(t_table *table)
 	i = -1;
 	while (++i < table->n_philo)
 		pthread_mutex_destroy(&table->forks[i]);
+	pthread_mutex_unlock(table->write);
 	pthread_mutex_destroy(table->write);
 }
 
