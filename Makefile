@@ -3,7 +3,7 @@ NAME = philo
 SRC = main.c utils.c init.c monitoring.c exit.c
 OBJS = ${SRC:.c=.o}
 
-CFLAGS = -Wall -Wextra -Werror -I include
+CFLAGS = -g -Wall -Wextra -Werror -I include
 
 %.o: %.c
 		cc ${CFLAGS} -c $< -o $@

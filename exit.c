@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 18:12:58 by brpereir          #+#    #+#             */
-/*   Updated: 2024/09/25 21:13:29 by bruno            ###   ########.fr       */
+/*   Updated: 2024/09/26 16:38:52 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	end_simulation(t_table *table)
 {
-	pthread_mutex_lock(table->write);
 	mtx_destroy(table);
 	free_structs(table);
 	exit(0);
@@ -27,7 +26,6 @@ void	mtx_destroy(t_table *table)
 	i = -1;
 	while (++i < table->n_philo)
 		pthread_mutex_destroy(&table->forks[i]);
-	pthread_mutex_unlock(table->write);
 	pthread_mutex_destroy(table->write);
 }
 

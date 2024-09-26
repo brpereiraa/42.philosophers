@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:44:55 by brpereir          #+#    #+#             */
-/*   Updated: 2024/09/25 21:18:42 by bruno            ###   ########.fr       */
+/*   Updated: 2024/09/26 16:55:29 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	action_print(t_philo *philo, int flag)
 
 	id = philo->id;
 	time = gettime() - philo->table->start_time;
-	if (philo->table->flag)
+	if(philo->eat_count >= philo->table->tme_mst_eat && philo->table->tme_mst_eat > 0)
 		return ;
 	pthread_mutex_lock(philo->table->write);
 	if (flag == 0)
@@ -73,15 +73,6 @@ void	action_print(t_philo *philo, int flag)
 
 int	is_dead(t_philo *philo)
 {
-	int	max_eat;
-
-	max_eat = philo->table->tme_mst_eat;
-	if (philo->dead)
-		philo->table->flag = 1;
-	if (max_eat
-		&& philo->eat_count == max_eat)
-		philo->table->flag = 1;
-	if (philo->table->flag)
-		return (1);
-	return (0);
+	// int flag;
+	return ((philo->eat_count >= philo->table->tme_mst_eat && philo->table->tme_mst_eat > 0) || philo->table->finish);
 }

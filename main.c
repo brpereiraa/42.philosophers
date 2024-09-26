@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 15:14:34 by brpereir          #+#    #+#             */
-/*   Updated: 2024/09/25 21:22:50 by bruno            ###   ########.fr       */
+/*   Updated: 2024/09/26 17:10:06 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(int ac, char **av)
 		return (0);
 	if (data_init(&table, av, ac))
 		exit(1);
-	if (!valid_input(table))
+	if (!valid_input(table, ac))
 		exit(0);
 	threads_init(table);
 	table->start_time = gettime();
@@ -45,10 +45,7 @@ void	start_simulation(t_table *table)
 		table->philos[i].l_fork = &table->forks[i];
 		table->philos[i].dead = 0;
 		table->philos[i].eat_count = 0;
-		if (i + 1 == table->n_philo)
-			table->philos[i].r_fork = &table->forks[0];
-		else
-			table->philos[i].r_fork = &table->forks[i + 1];
+		get_forks(table->forks, &table->philos[i], i);
 		pthread_create(&table->philos[i].t_id,
 			NULL, init_philo, &table->philos[i]);
 	}
@@ -74,8 +71,6 @@ void	start_philo(t_philo *philo)
 		pthread_mutex_unlock(philo->l_fork);
 		pthread_mutex_unlock(philo->r_fork);
 		philo->lst_eat = gettime();
-		if (philo->table->flag)
-			break ;
 		action_print(philo, 2);
 		ft_usleep(philo->table->tme_sleep);
 		if (!philo->table->flag)

@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 15:16:14 by brpereir          #+#    #+#             */
-/*   Updated: 2024/09/25 21:13:02 by bruno            ###   ########.fr       */
+/*   Updated: 2024/09/26 17:09:30 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ struct s_table
 {
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	*write;
+	pthread_mutex_t	*finished;
 	t_philo			*philos;
+	int				finish;
 	int				n_philo;
 	int				tme_die;
 	int				tme_eat;
@@ -144,7 +146,7 @@ void	start_philo(t_philo *philo);
  */
 void	*init_philo(void *arg);
 
-int		valid_input(t_table *table);
+int		valid_input(t_table *table, int ac);
 
 int		data_init(t_table **table, char **av, int ac);
 void	threads_init(t_table *table);
@@ -154,5 +156,6 @@ void	start_simulation(t_table *table);
 void	mtx_destroy(t_table *table);
 void	free_structs(t_table *table);
 void	end_simulation(t_table *table);
+void	get_forks(pthread_mutex_t *forks, t_philo *philo, int c);
 
 #endif
