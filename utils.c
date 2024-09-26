@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:44:55 by brpereir          #+#    #+#             */
-/*   Updated: 2024/09/26 16:55:29 by bruno            ###   ########.fr       */
+/*   Updated: 2024/09/27 00:34:07 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,24 +55,25 @@ void	action_print(t_philo *philo, int flag)
 
 	id = philo->id;
 	time = gettime() - philo->table->start_time;
-	if(philo->eat_count >= philo->table->tme_mst_eat && philo->table->tme_mst_eat > 0)
+	if (philo->eat_count >= philo->table->tme_mst_eat
+		&& philo->table->tme_mst_eat > 0)
 		return ;
 	pthread_mutex_lock(philo->table->write);
-	if (flag == 0)
+	if (flag == 0 && !is_dead(philo))
 		printf("%i %i %sis eating\n%s", time, id, YELLOW, RESET);
-	if (flag == 1)
+	if (flag == 1 && !is_dead(philo))
 		printf("%i %i %shas taken a fork\n%s", time, id, GREEN, RESET);
-	if (flag == 2)
+	if (flag == 2 && !is_dead(philo))
 		printf("%i %i %sis sleeping\n%s", time, id, BLUE, RESET);
-	if (flag == 3)
+	if (flag == 3 && !is_dead(philo))
 		printf("%i %i %sdied\n%s", time, id, RED, RESET);
-	if (flag == 4)
+	if (flag == 4 && !is_dead(philo))
 		printf("%i %i is thinking\n%s", time, id, RESET);
 	pthread_mutex_unlock(philo->table->write);
 }
 
 int	is_dead(t_philo *philo)
 {
-	// int flag;
-	return ((philo->eat_count >= philo->table->tme_mst_eat && philo->table->tme_mst_eat > 0) || philo->table->finish);
+	return ((philo->eat_count == philo->table->tme_mst_eat)
+		|| philo->table->finish);
 }

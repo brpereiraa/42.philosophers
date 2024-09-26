@@ -4,6 +4,8 @@ SRC = main.c utils.c init.c monitoring.c exit.c
 OBJS = ${SRC:.c=.o}
 
 CFLAGS = -g -Wall -Wextra -Werror -I include
+# CFLAGS += -fsanitize=thread
+CFLAGS += -fsanitize=address
 
 %.o: %.c
 		cc ${CFLAGS} -c $< -o $@

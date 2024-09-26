@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   monitoring.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:44:51 by brpereir          #+#    #+#             */
-/*   Updated: 2024/09/26 17:10:18 by bruno            ###   ########.fr       */
+/*   Updated: 2024/09/27 00:34:54 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./philo.h"
 
-int		check_finished(t_table *table)
+int	check_finished(t_table *table)
 {
 	int	i;
 	int	flag;
@@ -21,11 +21,11 @@ int		check_finished(t_table *table)
 	flag = 0;
 	while (++i < table->n_philo)
 	{
-		flag = ((table->philos[i].eat_count >= table->tme_mst_eat));
+		flag = ((table->philos[i].eat_count == table->tme_mst_eat));
 		if (!flag)
-			break;
+			break ;
 	}
-	if(flag)
+	if (flag)
 	{
 		pthread_mutex_lock(table->finished);
 		table->finish = 1;
@@ -34,6 +34,7 @@ int		check_finished(t_table *table)
 	}
 	return (0);
 }
+
 int	ft_monitoring(t_table *table)
 {
 	int	flag;
@@ -43,10 +44,11 @@ int	ft_monitoring(t_table *table)
 	i = -1;
 	while (++i < table->n_philo)
 	{
-		flag = (table->philos[i].eat_count == table->tme_mst_eat
-				&& table->tme_mst_eat > 0);
+		flag = (table->philos[i].eat_count == table->tme_mst_eat);
+		pthread_mutex_lock(table->philos[i].eat);
 		tmp = gettime() - table->philos[i].lst_eat;
-		if (tmp > table->tme_die && !flag)
+		pthread_mutex_unlock(table->philos[i].eat);
+		if (tmp >= table->tme_die && !flag)
 		{
 			action_print(&table->philos[i], 3);
 			table->philos[i].dead = 1;
@@ -54,9 +56,9 @@ int	ft_monitoring(t_table *table)
 			return (0);
 		}
 	}
-	if(check_finished(table))
+	if (check_finished(table))
 		return (0);
-	// usleep(10);
+	usleep(10);
 	return (1);
 }
 

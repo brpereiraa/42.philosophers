@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 17:01:52 by brpereir          #+#    #+#             */
-/*   Updated: 2024/09/26 16:47:56 by bruno            ###   ########.fr       */
+/*   Updated: 2024/09/26 18:25:22 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	data_init(t_table **table, char **av, int ac)
 	*table = malloc(sizeof(t_table));
 	if (!table)
 		return (1);
+	(*table)->finish = 0;
 	(*table)->n_philo = ft_atoi(av[1]);
 	(*table)->tme_die = ft_atoi(av[2]);
 	(*table)->tme_eat = ft_atoi(av[3]);
@@ -24,14 +25,14 @@ int	data_init(t_table **table, char **av, int ac)
 	if (ac == 6)
 		(*table)->tme_mst_eat = ft_atoi(av[5]);
 	else
-		(*table)->tme_mst_eat = 0;
+		(*table)->tme_mst_eat = -1;
 	(*table)->flag = 0;
 	if ((*table)->n_philo < 1 || (*table)->n_philo > 200)
 		return (printf("Number of philos must be between 1 and 200\n"));
 	if ((*table)->tme_die < 60 || (*table)->tme_sleep < 60
 		|| (*table)->tme_eat < 60)
 		return (printf("Times must be higher than 60\n"));
-	if ((*table)->tme_mst_eat < 0)
+	if ((*table)->tme_mst_eat < 1 && ac == 6)
 		return (printf("Meals\n"));
 	return (0);
 }
