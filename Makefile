@@ -1,30 +1,38 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: bruno <bruno@student.42.fr>                +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/09/29 17:27:17 by marvin            #+#    #+#              #
+#    Updated: 2024/09/30 10:16:03 by bruno            ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = philo
 
-SRC = main.c utils.c init.c monitoring.c exit.c
-OBJS = ${SRC:.c=.o}
+CFLAGS = -Wall -Wextra -Werror
 
-CFLAGS = -g -Wall -Wextra -Werror -I include
 # CFLAGS += -fsanitize=thread
-CFLAGS += -fsanitize=address
+# CFLAGS += -fsanitize=address
 
-%.o: %.c
-		cc ${CFLAGS} -c $< -o $@
+SRC =  ./actions.c ./main.c ./utils.c ./checker.c ./init.c ./exit.c
+OBJ = $(SRC:.c=.o)
 
-${NAME}: ${OBJS}
-			ar rcs philo.a ${OBJS}
-			cc ${CFLAGS} philo.a -o ${NAME}
+all: $(NAME)
 
-all: ${NAME}		
-
-clean:
-		rm -f ${OBJS}
-
-fclean: clean
-		rm -f philo.a philo
+$(NAME): $(OBJ)
+	cc $(CFLAGS) $(OBJ) -o $(NAME) 
 
 re: fclean all
 
-valgrind: re
-	@valgrind -s --leak-check=full --show-leak-kinds=all ./philo ${ARGS}
+clean: 
+	rm -f $(OBJ)
+
+fclean: clean
+	rm -f $(NAME)
 
 .SILENT:
+
+.PHONY: all re clean fclean
